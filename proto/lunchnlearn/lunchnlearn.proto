@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package lunchnlearn; // declare the package
+
+// declare the package to which the generated go file belongs
+option go_package = "github.com/rubyconvict/lunchnlearn/proto/lunchnlearn";
+
+// import "google/protobuf/empty.proto";
+// import "google/protobuf/timestamp.proto";
+
+// import "proto/lunchnlearn2/lunchnlearn2.proto "; // import other proto files in the same package
+
+// see more: https://developers.google.com/protocol-buffers/docs/proto3
+
+message LunchRequest {
+  // order - plain text
+  string order = 1;
+}
+
+message Lunch {
+  enum State {
+    STATE_UNSPECIFIED = 0;
+    ORDERED = 1;
+    DELIVERED = 2;
+    CANCELED = 3;
+  }
+
+  State state = 1;
+  string name = 2;
+  // foo - deleted field
+  // reserved 3;
+  // user.User buyer = 4;
+  // google.protobuf.Timestamp created_at = 5;
+  // google.protobuf.Timestamp updated_at = 6;
+  // card.Card issued_loyalty_card = 7 [deprecated = true];
+  // price - value in cents
+  // int32 price = 8;
+  // bool archived = 9;
+  // string uuid = 10;
+}
+
+message LunchResponse {
+  Lunch lunch = 1;
+}
+
+service LunchnlearnService {
+  rpc PlaceOrder(LunchRequest) returns (LunchResponse);
+  // rpc ReturnNothing(LunchRequest) returns (google.protobuf.Empty);
+}
